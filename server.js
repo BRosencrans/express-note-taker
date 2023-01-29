@@ -28,9 +28,10 @@ app.get('/api/notes', (req, res) => {
 
 //express function that allows a new note to be created and stored in the db.json and displayed to end user
 app.post("/api/notes", (req, res) => {
-    const newText= req.body;
-    const textList = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-    
+    let newText= req.body;
+    let textList = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    //creates an id number for each new note
+    newText.id = Math.floor(Math.random() * 10000);
     //writes and pushes note data to db.json
     textList.push(newText);
     fs.writeFileSync("./db/db.json", JSON.stringify(textList));
